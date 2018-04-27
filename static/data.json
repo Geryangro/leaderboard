@@ -1,0 +1,82 @@
+{
+   "status":"ok",
+   "result":{
+      "data":[
+         {
+            "name":"Luqman Alfian",
+            "point":1200,
+            "image":"luqmanalfian.jpg"
+         },
+         {
+            "name":"Herdi Karunia",
+            "point":800,
+            "image":"herdikarunia.jpg"
+         },
+         {
+            "name":"Stanny Afrakids",
+            "point":1500,
+            "image":"stannyafrakids.jpg"
+         },
+         {
+            "name":"Luqman Alfian",
+            "point":1200,
+            "image":"luqmanalfian.jpg"
+         },
+         {
+            "name":"Herdi Karunia",
+            "point":800,
+            "image":"herdikarunia.jpg"
+         },
+         {
+            "name":"Stanny Afrakids",
+            "point":200,
+            "image":"stannyafrakids.jpg"
+         },
+         {
+            "name":"Luqman Alfian",
+            "point":1200,
+            "image":"luqmanalfian.jpg"
+         },
+         {
+            "name":"Herdi Karunia",
+            "point":800,
+            "image":"herdikarunia.jpg"
+         },
+         {
+            "name":"Stanny Afrakids",
+            "point":200,
+            "image":"stannyafrakids.jpg"
+         },
+         {
+            "name":"Luqman Alfian",
+            "point":1200,
+            "image":"luqmanalfian.jpg"
+         },
+         {
+            "name":"Herdi Karunia",
+            "point":800,
+            "image":"herdikarunia.jpg"
+         },
+         {
+            "name":"Stanny Afrakids",
+            "point":200,
+            "image":"stannyafrakids.jpg"
+         },
+         {
+            "name":"Luqman Alfian",
+            "point":1200,
+            "image":"luqmanalfian.jpg"
+         },
+         {
+            "name":"Herdi Karunia",
+            "point":800,
+            "image":"herdikarunia.jpg"
+         },
+         {
+            "name":"Stanny Afrakids",
+            "point":200,
+            "image":"stannyafrakids.jpg"
+         }
+      ]
+   }
+}
