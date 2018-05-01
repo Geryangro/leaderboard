@@ -16,8 +16,8 @@
     </b-row>
     <b-row>
       <b-col cols="12">
-        <agen v-for="biodata in biodatas" :key="biodata.name" :biodata="biodata" />
-        <b-pagination :link-agen="clickCallback" align="center"
+        <agen v-for="(biodata, index) in pages[currentPage-1]" :key="index" :biodata="biodata" />
+        <b-pagination align="center"
                       :per-page="numPages"
                       :number-of-pages="nbp"
                       v-model="currentPage">
@@ -34,6 +34,7 @@
 
   export default {
     name: 'sideright',
+    props: ['biodatas'],
     components: {
       agen,
     },
@@ -41,44 +42,43 @@
       return {
         status: '',
         currentPage: 0,
-        biodatas: [],
         nbp: 4,
         pages:[],
         pageGen: 0,
         numPages: 0,
       }
     },
-    
-    mounted() {
+    updated: function() {
    	  this.loadDataAgen();
-    },   
+    },
+    
     methods: {
       loadDataAgen: function () {
-        var self = this;
-        axios.get('/static/data.json')
-        .then(function (response){
-          var data = response.data.result.data;
-          self.pages = self.loadDataToPages(data, self.nbp);
-          self.biodatas = self.pages[self.currentPage-1];
-          self.numPages = self.pages.length;
-        })
-        .catch(function (error){
-          self.biodatas = 'error dude' + error;
-        })
+        console.log(this.biodatas);
+        console.log(this.pageGen);
+        console.log(this.numPages);
+        this.pages =  this.loadDataToPages(this.biodatas, this.nbp);
+        this.numPages = this.pages.length;
+        console.log(this.pages);
+        // axios.get('/static/data.json')
+        // .then(function (response){
+        //   var data = response.data.result.data;
+        //   self.biodatas = self.pages[self.currentPage-1];
+        //   self.numPages = self.pages.length;
+        // })
+        // .catch(function (error){
+        //   self.biodatas = 'error dude' + error;
+        // })
       },
-     
       loadDataToPages: function(data, elementPerPage){
         var pages = [];
+        console.log(data);
         var i,j,temparray,chunk = elementPerPage;
         for (i=0,j=data.length; i<j; i+=chunk) {
             temparray = data.slice(i,i+chunk);
             pages.push(temparray);
         }
         return pages;
-      },
-      clickCallback: function() {
-        console.log('data change');
-        this.$set(this, 'biodatas', this.pages[this.currentPage-1]);
       }
     },
   }
@@ -90,12 +90,6 @@
   padding: 20px;
   background:rgba(85, 176, 169, 0.9);
   height: 662px;
-}
-span {
-  font-size: 25px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'piersans-bold';
 }
 p.title {
   margin: 7px 0px 10px 20px;;
@@ -113,5 +107,8 @@ img.champion-img-right {
   height: 100px;
   margin: 0px auto 10px;
   float: left;
+}
+.b-pagination {
+  padding: 30px 0px 15px;
 }
 </style>

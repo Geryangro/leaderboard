@@ -9,7 +9,7 @@
             <div class="col-percent">
                 <div class="bio-percent">
                     <p class="text-left name-agen">{{biodata.name}}</p>
-                    <b-progress variant="success" :value="counter" :max="max" show-progress></b-progress>
+                    <b-progress variant="success" :value="counter" :max="max"></b-progress>
                 </div>
                 <div class="percent">
                   <p class="text-percent" >
@@ -39,11 +39,10 @@
     }
   },
   mounted: function () {
-    setTimeout(() => {
-      this.percentage = this.findpercent().toFixed(0);
-      this.counter = parseInt(this.percentage);
-      this.bars[0].value = parseInt(this.percentage);
-    }, 1000);
+    this.rendering(200)
+  },
+   updated: function () {
+    this.rendering(200)
   },
   methods: {
     findpercent: function() {
@@ -54,6 +53,13 @@
         return 100*p/t;
       }
       return calcpercent(point,total);
+    },
+    rendering: function(timeout){
+      setTimeout(() => {
+      this.percentage = this.findpercent().toFixed(0);
+      this.counter = parseInt(this.percentage);
+      this.bars[0].value = parseInt(this.percentage);
+      }, timeout);
     }
   }
 }
@@ -62,9 +68,9 @@
 <style>
 .col-agen {
     margin-top: 10px;
-  display: inline-block;
-  float: left;
-  z-index: 2;
+    display: inline-block;
+    float: left;
+    z-index: 2;
 }
 .col-percent {
     background-color: #ffffff;
@@ -74,6 +80,10 @@
     width: 780px;
     border-radius: 0px 15px 15px 0px;
     padding-left: 30px;
+}
+.page-link {
+  font-size: 20px;
+  color: #888;
 }
 .bio-percent {
     width: 650px;
@@ -93,12 +103,6 @@
     margin-bottom: 5px;
     font-size: 18px;
     font-weight: 500;
-}
-span {
-  font-size: 25px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'piersans-bold';
 }
 p.title {
   margin: 7px 0px 10px 20px;;

@@ -6,7 +6,7 @@
           <sideleft/>
         </b-col>
         <b-col class="nopadding" cols="9">
-          <sideright/>
+          <sideright :biodatas="biodatas"/>
         </b-col>
     </b-row>
     </b-container>
@@ -16,6 +16,7 @@
 <script>
   import sideleft from './column/sideleft'
   import sideright from './column/sideright'
+  import axios from 'axios'
 
 
   export default {
@@ -24,6 +25,26 @@
       sideleft,
       sideright
     },
+    data () {
+      return {
+        biodatas: [],
+      }
+    },
+    created: function() {
+      this.loadDataAgen();
+    },
+    methods: {
+      loadDataAgen: function () {
+        var self = this;
+        axios.get('/static/data.json')
+        .then(function (response){
+          self.biodatas = response.data.result.data;
+        })
+        .catch(function (error){
+          self.biodatas = 'error dude' + error;
+        })
+      },
+    }
   }
 </script>
 
@@ -39,8 +60,5 @@
 }
 .nomargin {
   margin: 0px !important;
-}
-.opacity {
-  background: rgba(0, 0, 0, 0.7);
 }
 </style>

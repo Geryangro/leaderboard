@@ -2,7 +2,7 @@
   <div id="sideleft">
     <b-img :src="require('../../../assets/logo-kabah.png')" alt="logokabah" />
     <h5>LEADERBOARD</h5>
-    <span>88 HARI MENUJU BAITULLAH</span>
+    <span class="title-baitulah">88 HARI MENUJU BAITULLAH</span>
     <p class="text-first">Perolehan Sementara :</p>
     <b-col cols="12" class="nopadding">
       <div class="champion">
@@ -104,7 +104,7 @@ h6 {
   font-weight: 100;
   font-family: 'piersans-light';
 }
-span {
+span.title-baitulah {
   font-size: 25px;
   font-weight: 800;
   color: #ffffff;
