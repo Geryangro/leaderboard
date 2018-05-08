@@ -1,0 +1,22 @@
+{
+   "status":"ok",
+   "result":{
+      "data":[
+         {
+            "title":"Champion",
+            "image":"static/Champion.png",
+            "medal":"static/juaraemas.png"
+         },
+         {
+            "title":"Silver Medal",
+            "image":"static/silver.png",
+            "medal":"static/juaramedal.png"
+         },
+         {
+            "title":"Bronze Medal",
+            "image":"static/bronze.png",
+            "medal":"static/juaraperak.png"
+         }
+      ]
+   }
+}

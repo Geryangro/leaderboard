@@ -14,7 +14,3 @@ import background from './background/backgroundheader'
     },
   }
 </script>
-
-<style scope>
-    
-</style>

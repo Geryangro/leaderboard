@@ -2,107 +2,73 @@
   <div id="sideleft">
     <b-img :src="require('../../../assets/logo-kabah.png')" alt="logokabah" />
     <h5>LEADERBOARD</h5>
-    <span class="title-baitulah">88 HARI MENUJU BAITULLAH</span>
+    <span v-if="$resize && $mq.above(992)" class="title-baitulah">88 HARI MENUJU BAITULLAH</span>
+    <span v-else class="title-baitulah">88 HARI MENUJU <br> BAITULLAH</span>
     <p class="text-first">Perolehan Sementara :</p>
     <b-col cols="12" class="nopadding">
-      <div class="champion">
-        <b-row>
-          <b-col cols="4" class="nopadding">
-            <div class="col-champ">
-              <b-img :src="require('../../../assets/Champion.png')" fluid />
-              <p class="text-center champ">CHAMPION</p>
-            </div>
-          </b-col>
-          <b-col cols="5">
-            <b-img class="champion-img" :src="require('../../../assets/Mba Novita.png')" fluid /> 
-          </b-col>  
-          <b-col cols="3">
-            <h6 class="name-agen-margin">Novita</h6>
-          </b-col>
-        </b-row>
-      </div>
-    </b-col>
-    <b-col cols="12" class="nopadding">
-      <div class="champion">
-        <b-row>
-          <b-col cols="4" class="nopadding">
-            <div class="col-champ">
-              <b-img :src="require('../../../assets/silver.png')" fluid />
-              <p class="text-center champ">RUNNER UP</p>
-            </div>
-          </b-col>
-          <b-col cols="5">
-            <b-img class="champion-img" :src="require('../../../assets/Mba Stanny.png')" fluid /> 
-          </b-col>  
-          <b-col cols="3">
-            <h6 class="name-agen-margin">Stany</h6>
-          </b-col>  
-        </b-row>
-      </div>
-    </b-col>
-    <b-col cols="12" class="nopadding">
-      <div class="champion">
-        <b-row>
-          <b-col cols="4" class="nopadding">
-            <div class="col-champ">
-              <b-img :src="require('../../../assets/bronze.png')" fluid />
-              <p class="text-center champ">3RD PLACE</p>
-            </div>
-          </b-col>
-          <b-col cols="5">
-            <b-img class="champion-img" :src="require('../../../assets/Mba Astina.png')" fluid /> 
-          </b-col>  
-          <b-col cols="3">
-            <h6 class="name-agen-margin">Astina</h6>
-          </b-col>  
-        </b-row>
-      </div>
+      <champion v-for="(biodata, index) in championRows" :key="index" :id="'champion-'+index" :biodata="biodata" :image="champimage[index]" />
     </b-col>
   </div>
 </template>
 
 <script>
-  
+import champion from './componentchampion'
+import axios from 'axios'
+
+  export default {
+    name: 'sideleft',
+    props: ['biodatas'],
+    data(){
+      return {
+        championRows: [],
+        champimage: [],
+      }
+    },
+    watch: {
+      biodatas: function(val) {
+        this.biodatas = val;
+        this.sliceData();
+        console.log("biodatas change");
+      },
+      champimage: function(val){
+        this.champimage = val;
+        console.log("champimage change");
+      }
+    },
+    components: {
+      champion,
+    },
+    created: function() {
+      this.loadDataImageChamp();
+      this.sliceData();
+    },
+    methods: {
+      sliceData: function() {
+        this.championRows = this.biodatas.slice(0 , 3);
+      },
+      loadDataImageChamp: function() {
+        var self = this;
+        axios.get('/static/champ.json')
+        .then(function (response){
+          self.champimage = response.data.result.data;
+        })
+        .catch(function (error){
+          self.champimage = 'error dude' + error;
+        })
+      }
+    }
+  }
 </script>
 
 <style>
-@font-face {
-  font-family: 'Roboto';
-  src: url('../../../assets/font/roboto.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'piersans';
-  src: url('../../../assets/font/piersans.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'piersans-bold';
-  src: url('../../../assets/font/piersans-bold.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'piersans-light';
-  src: url('../../../assets/font/piersans-light.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-h4 {
-  color: #ffffff;
-}
-h5 {
-  margin-top: 15px;
-  color: #ffffff;
-  font-weight: 100;
-  font-family: 'piersans-light';
-}
-h6 {
-  color: #ffffff;
-  font-weight: 100;
-  font-family: 'piersans-light';
+#sideleft {
+  width: 100%;
+  padding: 20px;
+  background-image: url('');
+  background-color: #4B5E99;
+  height: 662px;
+  background: rgba(75, 94, 153, 0.9);
+  z-index: -10px;
 }
 span.title-baitulah {
   font-size: 25px;
@@ -115,22 +81,8 @@ span.name {
   font-family: 'Roboto';
   font-weight: 300;
 }
-#sideleft {
-  width: 100%;
-  padding: 20px;
-  background-color: #4B5E99;
-  height: 662px;
-  background: rgba(75, 94, 153, 0.9);
-}
 .col-champ {
   margin-top: 8px;
-}
-img.champion-img {
-  border: 4px solid #ffffff;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin: 0px auto 10px;
 }
 .text-position {
   margin-top: 40px;
@@ -145,9 +97,6 @@ img.champion-img {
   margin: 12px 0px 0px;
   color: #ffffff;
 }
-.name-agen-margin {
-  margin-top: 35px;
-}
 p.text-first {
   font-size: 20px;
   color: #F9DB44;
@@ -155,5 +104,52 @@ p.text-first {
 }
 img.img-profile {
   width: 110px;
+}
+@media screen and (max-width: 768px){
+  #sideleft {
+    height: 570px;
+    background-image: url('../../../assets/mobile.jpg');
+    background-size: 100% 100%;
+    z-index: -10;
+    padding: 40px 0px;
+  }
+  #champion-0 {
+    margin: 10px 20px 0px;
+  }
+  #champion-0 > div.champ-col-class > div > div > img {
+    border: 6px solid #FDDB42;
+  }
+  #champion-0 > div.champ-col-class > div > div > img.medal.img-fluid {
+    border: none;
+    margin-left: -35px;
+    margin-top: 45px;
+  }
+  #champion-1 {
+    margin-left: -220px;
+    margin-top: -7px;
+  }
+  #champion-1 > div.champ-col-class > div > div > img {
+    border: 6px solid #cfcece;
+  }
+  #champion-1 > div.champ-col-class > div > div > img.medal.img-fluid {
+    border: none;
+    margin-left: -43px;
+    margin-top: 75px;
+  }
+  #champion-2 {
+    margin-right: -220px;
+    margin-top: -120px;
+  }
+  #champion-2 > div.champ-col-class > div > div > img {
+    border: 6px solid #cd6132;
+  }
+  #champion-2 > div.champ-col-class > div > div > img.medal.img-fluid {
+    border: none;
+    margin-left: -43px;
+    margin-top: 75px;
+  }
+  .text-first {
+    display: none;
+  }
 }
 </style>
